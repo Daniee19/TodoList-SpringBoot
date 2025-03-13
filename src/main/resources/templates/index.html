@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To-Do LIST</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+<h1>To-Do LIST</h1>
+<div id="app">
+    <div>
+        <h3>Agregar tarea</h3>
+
+        <form method="get" action="tareas/registroCrearTarea">
+            <button type="submit">Agregar tarea</button>
+        </form>
+
+    </div>
+    <div class="form">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Descripción</th>
+                <th>Fecha de Creación</th>
+                <th>Actualizar Tarea</th>
+                <th>¿Terminado?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${tareaEspeficica}">
+                <td th:text="${tarea.idTarea}"></td>
+                <th th:text="${tarea.titulo}"></th>
+                <th th:text="${tarea.descripcion}"></th>
+                <th th:text="${tarea.fechaCreacion}"></th>
+                <th>
+                    <form method="get" th:action="@{/tareas/registroActualizarTarea/{id}(id=${tarea.idTarea})}">
+                        <button type="submit">Editar</button>
+                    </form>
+                </th>
+                <th><input type="checkbox"></th>
+            </tr>
+            <!-- Si la lista está vacía, muestra un mensaje -->
+            <tr th:if="${tareas == null or tareas.isEmpty()}">
+                <td colspan="6">No hay tareas registradas.</td>
+            </tr>
+
+            <tr th:each="tarea : ${tareas}">
+                <td th:text="${tarea.idTarea}"></td>
+                <th th:text="${tarea.titulo}"></th>
+                <th th:text="${tarea.descripcion}"></th>
+                <th th:text="${tarea.fechaCreacion}"></th>
+                <th>
+                    <form method="get" th:action="@{/tareas/registroActualizarTarea/{id}(id=${tarea.idTarea})}">
+                        <button type="submit">Editar</button>
+                    </form>
+                </th>
+                <th><input type="checkbox"></th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

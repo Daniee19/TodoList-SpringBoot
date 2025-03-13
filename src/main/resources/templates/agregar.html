@@ -1,0 +1,30 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AGREGAR TAREA</title>
+</head>
+<body>
+<h1>Agregar nueva tarea</h1>
+<div>
+    <table>
+        <form th:action="@{/tareas}" method="post" th:object="${nuevaTarea}">
+            <tr>
+                <label for="titulo">Título: <input id="titulo" type="text" th:field="*{titulo}"></label>
+            </tr>
+            <tr>
+                <label for="descripcion">Descripción: <input id="descripcion" type="text" th:field="*{descripcion}">
+                </label>
+            </tr>
+            <tr>
+                <label for="fechaCreacion">Fecha de Creación: <input id="fechaCreacion" type="date"
+                                                                     th:field="*{fechaCreacion}"></label>
+            </tr>
+            <tr>
+                <button type="submit">Crear tarea</button>
+            </tr>
+        </form>
+    </table>
+</div>
+</body>
+</html>

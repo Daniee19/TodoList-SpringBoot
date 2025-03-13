@@ -1,6 +1,7 @@
 package com.spring.todo.todo.modelo.entidad;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 public class Tarea implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private int idTarea;
     private String titulo;
     private String descripcion;
@@ -23,5 +25,5 @@ public class Tarea implements Serializable {
     En SQL -> Tendría que ir Date si solo se quiere la fecha
     * */
     private LocalDate fechaCreacion;
-
+    private boolean completado;
 }

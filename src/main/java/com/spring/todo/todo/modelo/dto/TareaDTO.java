@@ -16,4 +16,5 @@ public class TareaDTO {
     private String titulo;
     private String descripcion;
     private LocalDate fechaCreacion;
+    private boolean completado;
 }

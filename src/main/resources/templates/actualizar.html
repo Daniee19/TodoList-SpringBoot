@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ACTUALIZAR TAREA</title>
+</head>
+<body>
+<h1>Actualizar tarea</h1>
+<div>
+    <table>
+        <!-- th:field="" muestra los datos igual que th:value, pero es mejor, ya que establece una relación con el objeto
+        tareaObtenida, la cual permitirá editar de buena manera-->
+        <form th:action="@{/tareas/{id}(id=${tareaObtenida.idTarea})}" method="post" th:object="${tareaObtenida}">
+            <input type="hidden" name="_method" value="put">  <!-- Simula el método PUT -->
+            <tr>
+                <label for="idt">Título: <input id="idt" type="text" th:field="*{idTarea}"></label>
+            </tr>
+            <tr>
+                <label for="titulo">Título: <input id="titulo" type="text" th:field="*{titulo}"></label>
+            </tr>
+            <tr>
+                <label for="descripcion">Descripción: <input id="descripcion" type="text" th:field="*{descripcion}">
+                </label>
+            </tr>
+            <tr>
+                <label for="fechaCreacion">Fecha de Creación: <input id="fechaCreacion" type="date"
+                                                                     th:field="*{fechaCreacion}"></label>
+            </tr>
+            <tr>
+                <button type="submit">Actualizar tarea</button>
+            </tr>
+        </form>
+    </table>
+</div>
+</body>
+</html>

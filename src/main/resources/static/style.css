@@ -1,0 +1,18 @@
+* {
+    margin: auto;
+    box-sizing: border-box;
+    background: bisque;
+}
+
+.eliminarTarea {
+    display: none;
+}
+
+.visibilidad {
+    display: flex;
+}
+
+.tablita {
+    padding: 4%;
+    background: white;
+}

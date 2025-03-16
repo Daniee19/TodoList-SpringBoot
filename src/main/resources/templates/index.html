@@ -14,9 +14,11 @@
         <form method="get" action="tareas/registroCrearTarea">
             <button type="submit">Agregar tarea</button>
         </form>
-
+        <form class="eliminarTarea" method="get">
+            <button type="submit" id="btnEliminarTarea">Eliminar tarea</button>
+        </form>
     </div>
-    <div class="form">
+    <div class="tablita">
         <table>
             <thead>
             <tr>
@@ -45,7 +47,9 @@
             <tr th:if="${tareas == null or tareas.isEmpty()}">
                 <td colspan="6">No hay tareas registradas.</td>
             </tr>
-
+            <tr>
+                <td colspan="6" th:class="mensaje_no_tareas"></td>
+            </tr>
             <tr th:each="tarea : ${tareas}">
                 <td th:text="${tarea.idTarea}"></td>
                 <th th:text="${tarea.titulo}"></th>
@@ -56,11 +60,13 @@
                         <button type="submit">Editar</button>
                     </form>
                 </th>
-                <th><input type="checkbox"></th>
+                <th><input type="checkbox" class="cb" th:data-target="${tarea.idTarea}" th:value="${tarea.idTarea}">
+                </th>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
+<script th:src="@{/js.js}"></script>
 </body>
 </html>

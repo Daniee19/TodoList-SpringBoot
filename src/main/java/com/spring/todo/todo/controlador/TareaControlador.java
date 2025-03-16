@@ -3,7 +3,6 @@ package com.spring.todo.todo.controlador;
 import com.spring.todo.todo.modelo.dto.TareaDTO;
 import com.spring.todo.todo.modelo.entidad.Tarea;
 import com.spring.todo.todo.servicio.TareaServicio;
-import com.spring.todo.todo.util.MensajeRespuesta;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -31,7 +30,6 @@ public class TareaControlador {
     @GetMapping
     public String verTareas(Model model) {
         try {
-            TareaDTO tareaDTO = new TareaDTO();
             List<Tarea> lista = tareaServicio.listar();
             //Es más práctico hacer la lógica aca que en thymeleaf
             if (!lista.isEmpty()) {
@@ -39,7 +37,6 @@ public class TareaControlador {
             }
         } catch (Exception e) {
             logger.severe("Error al obtener tareas: " + e.getMessage());
-            //return new ResponseEntity<>("Error interno del servidor", HttpStatus.INTERNAL_SERVER_ERROR);
             model.addAttribute("tareas", "Hubo un error al consultar las tareas");
         }
         return "index";
@@ -52,11 +49,14 @@ public class TareaControlador {
                 return "agregar";
             }
             tareaServicio.crear(tareaDTO);
-            verTareas(model);
         } catch (Exception e) {
             System.out.println("Error al crear la tarea: " + e.getMessage());
         }
-        return "index";
+        /**
+         * Se hace una nueva consulta get -> Con el fin de seguir teniendo la información dada desde el action del
+         * formulario (para evitar así elementos duplicados)
+         */
+        return "redirect:/tareas";
     }
 
     //INTERMEDIARIOS
@@ -82,13 +82,21 @@ public class TareaControlador {
     }
 
     @DeleteMapping("/{id}")
-    public String eliminarTarea(@PathVariable int id) {
+    @ResponseBody
+    public ResponseEntity<?> eliminarTarea(@PathVariable int id) {
         try {
-            tareaServicio.eliminar(tareaServicio.buscarPorId(id));
-        } catch (DataAccessException e) {
+            Tarea tarea = tareaServicio.buscarPorId(id);
+            if (tarea == null) {
+                System.out.println("Tarea no encontrada con id: " + id);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            tareaServicio.eliminar(tarea);
+            System.out.println("eliminado " + id);
+        } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Error al eliminar la tarea: " + e.getMessage());
         }
-        return "index";
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")

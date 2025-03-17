@@ -43,12 +43,10 @@
                 </th>
                 <th><input type="checkbox"></th>
             </tr>
-            <!-- Si la lista está vacía, muestra un mensaje -->
-            <tr th:if="${tareas == null or tareas.isEmpty()}">
+            <!-- Si la lista está vacía, muestra un mensaje. Se hizo de esta manera porque cuando es asincrónico el
+            cliente verá el cambio sin tener que actualizar el navegador -->
+            <tr th:classappend="${tareas == null or tareas.isEmpty()} ? '' : 'hidden'" th:class="mensaje_no_tareas">
                 <td colspan="6">No hay tareas registradas.</td>
-            </tr>
-            <tr>
-                <td colspan="6" th:class="mensaje_no_tareas"></td>
             </tr>
             <tr th:each="tarea : ${tareas}">
                 <td th:text="${tarea.idTarea}"></td>

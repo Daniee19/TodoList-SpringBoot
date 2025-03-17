@@ -129,7 +129,7 @@ public class TareaControlador {
                 }
                 tareaServicio.crear(tareaDTO);
                 verTareas(model);
-                return "index";
+                return "redirect:/tareas";
             }
             return "actualizar";
         } catch (Exception e) {

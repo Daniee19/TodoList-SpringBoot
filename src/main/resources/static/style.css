@@ -13,6 +13,10 @@
 }
 
 .tablita {
-    padding: 4%;
+    /*padding: 4%;*/
     background: white;
+}
+
+.hidden {
+    display: none;
 }

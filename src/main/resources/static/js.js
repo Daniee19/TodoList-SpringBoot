@@ -21,8 +21,12 @@ checkboxes.forEach(checkbox => checkbox.addEventListener("change", (event) => {
     if (event.target.checked) {
         //Agregamos el valor al Set()
         output.add(event.target.value);
+        checkbox.closest("tr").classList.add("tachar");
+        checkbox.closest("tr").querySelector(".botonEditar").classList.add("desactivar");
     } else {
         output.delete(event.target.value);
+        checkbox.closest("tr").classList.remove("tachar");
+        checkbox.closest("tr").querySelector(".botonEditar").classList.remove("desactivar");
     }
     //Ver como array
     console.log("SET de los checkboxes seleccionados: ", output);

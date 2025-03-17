@@ -1,36 +1,56 @@
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
     <title>ACTUALIZAR TAREA</title>
 </head>
 <body>
-<h1>Actualizar tarea</h1>
-<div>
-    <table>
+
+<div class="container">
+    <h1 class="pt-4 text-center">Actualizar tarea</h1>
+    <hr/>
+    <table class="table-agregar_editar">
         <!-- th:field="" muestra los datos igual que th:value, pero es mejor, ya que establece una relación con el objeto
         tareaObtenida, la cual permitirá editar de buena manera-->
         <form th:action="@{/tareas/{id}(id=${tareaObtenida.idTarea})}" method="post" th:object="${tareaObtenida}">
             <input type="hidden" name="_method" value="put">  <!-- Simula el método PUT -->
+            <!-- ES IMPORTANTE PARA OBTENER ESE VALOR Y PASARLO COMO PARÁMETRO-->
+            <label for="idt"><input id="idt" type="hidden" th:field="*{idTarea}"></label>
+
             <tr>
-                <label for="idt">Título: <input id="idt" type="text" th:field="*{idTarea}"></label>
+                <th>
+                    <label for="titulo">Título:
+                        <input id="titulo" type="text" th:field="*{titulo}">
+                    </label>
+                </th>
             </tr>
             <tr>
-                <label for="titulo">Título: <input id="titulo" type="text" th:field="*{titulo}"></label>
+                <th>
+                    <label for="descripcion">Descripción:
+                        <input id="descripcion" type="text" th:field="*{descripcion}">
+                    </label>
+                </th>
             </tr>
             <tr>
-                <label for="descripcion">Descripción: <input id="descripcion" type="text" th:field="*{descripcion}">
-                </label>
+                <th>
+                    <label for="fechaCreacion">Fecha de Creación:
+                        <input id="fechaCreacion" type="date" th:field="*{fechaCreacion}">
+                    </label>
+                </th>
             </tr>
             <tr>
-                <label for="fechaCreacion">Fecha de Creación: <input id="fechaCreacion" type="date"
-                                                                     th:field="*{fechaCreacion}"></label>
-            </tr>
-            <tr>
-                <button type="submit">Actualizar tarea</button>
+                <th class="text-center">
+                    <button type="submit" class="my-2 rounded py-1 px-3">Actualizar tarea</button>
+                </th>
             </tr>
         </form>
     </table>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>

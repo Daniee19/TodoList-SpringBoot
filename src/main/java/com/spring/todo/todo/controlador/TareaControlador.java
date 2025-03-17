@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -102,12 +103,16 @@ public class TareaControlador {
     @GetMapping("/{id}")
     public String encontrarPorId(@PathVariable int id, Model model) {
         Tarea tareaEncontrada = tareaServicio.buscarPorId(id);
+
+        List lista = new ArrayList();
+        lista.add(tareaEncontrada);
+
         if (tareaEncontrada == null) {
-            model.addAttribute("tareaEspeficica", false);
+            //model.addAttribute("tareaEspeficica", false);
             return "index";
         }
-        model.addAttribute("tareaEspeficica", true);
-        model.addAttribute("tarea", tareaEncontrada);
+//        model.addAttribute("tareaEspeficica", true);
+        model.addAttribute("tareas", lista);
         return "index";
     }
 
@@ -128,8 +133,10 @@ public class TareaControlador {
                     return "actualizar";
                 }
                 tareaServicio.crear(tareaDTO);
-                verTareas(model);
+//                verTareas(model);
                 return "redirect:/tareas";
+            } else {
+                System.out.println("No existe: " + tareaDTO.getIdTarea());
             }
             return "actualizar";
         } catch (Exception e) {
